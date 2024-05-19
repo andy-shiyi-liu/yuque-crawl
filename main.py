@@ -49,7 +49,7 @@ def save_page(book_id, sulg, path):
     f.close()
 
 
-def get_book(url, outputDir):
+def get_book(url: str, outputDir: str):
     docsdata = requests.get(url)
     data = re.findall(
         r"decodeURIComponent\(\"(.+)\"\)\);", docsdata.content.decode("utf-8")
@@ -61,6 +61,8 @@ def get_book(url, outputDir):
     md = ""
     table = str.maketrans('\/:*?"<>|' + "\n\r", "___________")
     prename = ""
+    if outputDir[-1] != "/":
+        outputDir = outputDir + "/"
     if os.path.exists(outputDir + str(docsjson["book"]["id"])) == False:
         os.makedirs(outputDir + str(docsjson["book"]["id"]))
 
